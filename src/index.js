@@ -7,6 +7,7 @@ import {
 } from 'react-router-dom'
 import './index.css';
 import App from './App';
+import BlogPage from './components/BlogPage';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -18,16 +19,8 @@ root.render(
         element={<App />}
       />
       <Route 
-        path='/wendigo' 
-        element={<App />}
-      />
-      <Route 
-        path='/moth-man' 
-        element={<App />}
-      />
-      <Route 
-        path='/loch-ness-monster' 
-        element={<App />}
+        path='/cryptids/:id' 
+        element={<BlogPage />}
       />
     </Routes>
   </BrowserRouter>

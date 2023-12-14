@@ -1,7 +1,20 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import data from "./data.js";
+import { isHtmlElement } from "react-router-dom/dist/dom";
 
 const Navbar = () => {
+    const [information, setInformation] = useState([]);
+
+    useEffect(() => {
+        fetch(data)
+        .then((response) => response.json())
+        .then((result) => setInformation(result))
+        .catch("Cannot retrieve data");
+    })
+
+
+
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid">
@@ -10,14 +23,16 @@ const Navbar = () => {
                 <li className="nav-item">
                     <Link to="/" className="nav-link">Home</Link>
                 </li>
-                <li className="nav-item">
-                    <Link to="/wendigo" className="nav-link">Wendigo</Link>
-                </li>
-                <li className="nav-item">
-                    <Link to="/moth-man" className="nav-link">Mothman</Link>
-                </li>
-                <li className="nav-item">
-                    <Link to="/loch-ness-monster" className="nav-link">Lochness Monster</Link>
+                <li className="nav-item dropdown">
+                <a className="nav-link dropdown-toggle" href="#"role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Cryptids
+                </a>
+                <ul className="dropdown-menu">
+                    <li><a className="dropdown-item" href="#">Action</a></li>
+                    {information.map((item) => (
+                        <Link to={item}></Link>
+                    ))}
+                </ul>
                 </li>
             </ul>
             </div>
@@ -25,3 +40,5 @@ const Navbar = () => {
         </nav>
     );
 };
+
+export default Navbar;
